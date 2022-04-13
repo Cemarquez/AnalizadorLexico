@@ -124,7 +124,14 @@ public class AnalizadorLexico {
 		return null;
 	}
 	
-	
+	/**
+     * Intenta extraer un operador aritmetico de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer el operador de asignación  - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer el operador de asingación  - 0<=i<codigo.length()
+     * @return el token operador asignación o NULL, si el token en la posición dada no es un operador de asignación. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
 	public Token extraerOperadorAritmetico(String cod, int i) {
 		if(cod.charAt(i) == 'P') {
 			int j= i + 4;
