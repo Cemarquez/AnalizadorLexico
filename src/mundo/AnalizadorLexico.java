@@ -137,16 +137,18 @@ public class AnalizadorLexico {
 				return token;
 			}
 		}else if(cod.charAt(i) == 'D') {
-			if (cod.charAt(i+1) == 'I' && cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ) {
-				int j=i+4;
-		        String lex =  cod.substring( i, j);			 
-				Token token = new Token( lex, Token.OPERADORARITMETICO, j );
-				return token;
-			}else if (cod.charAt(i+1) == 'I' && cod.charAt(i+2) == 'V') {
-				int j=i+3;
-		        String lex =  cod.substring( i, j);			 
-				Token token = new Token( lex, Token.OPERADORARITMETICO, j );
-				return token;
+			if (cod.charAt(i+1) == 'I') {
+				if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ){
+					int j=i+4;
+			        String lex =  cod.substring( i, j);			 
+					Token token = new Token( lex, Token.OPERADORARITMETICO, j );
+					return token;
+				}else if(cod.charAt(i+2) == 'V') {
+					int j=i+3;
+			        String lex =  cod.substring( i, j);			 
+					Token token = new Token( lex, Token.OPERADORARITMETICO, j );
+					return token;
+				}
 			}
 		}
 		
