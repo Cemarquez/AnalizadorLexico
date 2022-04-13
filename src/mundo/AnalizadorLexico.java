@@ -59,6 +59,11 @@ public class AnalizadorLexico {
     {
     	Token token;
 
+    	// Intenta extraer un operador de asignación
+    	token = extraerOperadorAsignacion( cod, i);
+    	if ( token != null )
+    		return token;
+    	
     	// Intenta extraer un operador aritmetico
 		token = extraerOperadorAritmetico( cod, i);
 		if ( token != null )
@@ -73,66 +78,13 @@ public class AnalizadorLexico {
 		token = extraerOperadorLogico(cod, i);
 		if ( token != null )
 			return token;
-			
+			      
 		// Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
 		return token;
     }
 
-    /**
-     * Intenta extraer un entero de la cadena cod a partir de la posición i,
-     * basándose en el Autómata
-     * @param cod - código al cual se le va a intentar extraer un entero - codigo!=null
-     * @param i - posición a partir de la cual se va a intentar extraer un entero  - 0<=indice<codigo.length()
-     * @return el token entero o NULL, si el token en la posición dada no es un entero. El Token se compone de 
-     * el lexema, el tipo y la posición del siguiente lexema.
-     */
-	
-    // Este método usa el método substring(), que se explica a continuación:
-    // x.substring( i, j ) retorna una nueva cadena que es una subcadena de la cadena x.
-    // La subcadena comienza en la posición i y
-    // se extiende hasta el carácter en la posición j-1.
-    // Ejemplo: "universidad".substring(3,6) retorna "ver",
-	
-	
-	public Token extraerEntero ( String cod, int i)
-	{
-		
-		int j;
-		String lex;
-		if( cod.charAt(i)=='#' ){
-			j=i+1;
-			if( j<cod.length() && esDigito(cod.charAt(j)) ){		
-			    do
-			    	j++;
-			    while (  j<cod.length( ) && esDigito(cod.charAt(j)) );
-		        lex =  cod.substring( i, j);			    
-				Token token = new Token( lex, Token.ENTERO, j );
-				return token;			
-			}
-		}
-		
-		return null;
-	}
 
-    /**
-     * Intenta extraer un operador aditivo de la cadena cod a partir de la posición i,
-     * basándose en el Autómata
-     * @param cod - código al cual se le va a intentar extraer el operador aditivo  - codigo!=null
-     * @param i - posición a partir de la cual se va a intentar extraer el operador aditivo  - 0<=i<codigo.length()
-     * @return el token operador aditivo o NULL, si el token en la posición dada no es un operador aditivo.El Token se compone de 
-     * el lexema, el tipo y la posición del siguiente lexema.
-     */
-	public Token extraerOperadorAditivo ( String cod, int i )
-	{
-		if( cod.charAt(i) =='+' || cod.charAt(i) =='-'){
-			int j=i+1;
-	        String lex =  cod.substring( i, j);			    
-			Token token = new Token( lex, Token.OPERADORADITIVO, j );
-			return token;
-		}
-		return null;
-	}
 	
 	/**
      * Intenta extraer un operador aritmetico de la cadena cod a partir de la posición i,
@@ -143,7 +95,7 @@ public class AnalizadorLexico {
      * el lexema, el tipo y la posición del siguiente lexema.
      */
 	public Token extraerOperadorAritmetico(String cod, int i) {
-		if(cod.charAt(i) == 'P') {
+		if(cod.charAt(i) == 'P' && (i+3) < cod.length()) {
 			int j= i + 4;
 			String lex = cod.substring(i,  j);
 			if (cod.charAt(i+1) == 'L' && cod.charAt(i+2) == 'U' && cod.charAt(i+3) == 'S' ) {
@@ -153,18 +105,25 @@ public class AnalizadorLexico {
 				Token token = new Token( lex, Token.OPERADORARITMETICO, j );
 				return token;
 			}
-		}else if(cod.charAt(i) == 'D') {
+		}else if(cod.charAt(i) == 'D'  && (i+1) < cod.length()) {
 			if (cod.charAt(i+1) == 'I') {
-				if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ){
-					int j=i+4;
-			        String lex =  cod.substring( i, j);			 
-					Token token = new Token( lex, Token.OPERADORARITMETICO, j );
-					return token;
-				}else if(cod.charAt(i+2) == 'V') {
-					int j=i+3;
-			        String lex =  cod.substring( i, j);			 
-					Token token = new Token( lex, Token.OPERADORARITMETICO, j );
-					return token;
+				
+				if( (i+3) < cod.length()) {
+					if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ){
+						int j=i+4;
+				        String lex =  cod.substring( i, j);			 
+						Token token = new Token( lex, Token.OPERADORARITMETICO, j );
+						return token;
+					}
+					
+					
+				}else if( (i+2) < cod.length()) {
+					if(cod.charAt(i+2) == 'V') {
+						int j=i+3;
+					    String lex =  cod.substring( i, j);			 
+						Token token = new Token( lex, Token.OPERADORARITMETICO, j );
+						return token;
+					}
 				}
 			}
 		}
@@ -211,7 +170,7 @@ public class AnalizadorLexico {
 			Token token = new Token( lex, Token.OPERADORRELACIONAL, j );
 			return token;
 			
-		}else if(cod.charAt(i) == '↔') {
+		}else if(cod.charAt(i) == '↔' && (i+1) < cod.length()) {
 			
 			if(cod.charAt(i+1) == '↔') {
 				int j=i+2;
@@ -274,19 +233,35 @@ public class AnalizadorLexico {
      */
 	public Token extraerOperadorAsignacion ( String cod, int i )
 	{
-		if( cod.charAt(i) =='<'){
-			int j=i+1;
-			if( j<cod.length() && (cod.charAt(j) =='<' || cod.charAt(j) =='-' ) ){		
-				j++;
-				if( j<cod.length() && cod.charAt(j) =='<' ){		
-					j++;
-			        String lex =  cod.substring( i, j);			    
+		if(cod.charAt(i) == 'P' && (i+4) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'L' && cod.charAt(i+2) == 'U' && cod.charAt(i+3) == 'S' ) {
+				if(cod.charAt(i+4) == '↔') {
+					int j= i + 5;
+					String lex = cod.substring(i,  j);
 					Token token = new Token( lex, Token.OPERADORASIGNACION, j );
 					return token;
+					
+				}
+				
+			} 
+		}else if(cod.charAt(i) == 'D' && (i+4) < cod.length()) {
+			if (cod.charAt(i+1) == 'I') {
+				if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ){
+					if(cod.charAt(i+4) == '↔') {
+						int j= i + 5;
+						String lex = cod.substring(i,  j);
+						Token token = new Token( lex, Token.OPERADORASIGNACION, j );
+						return token;
+						
+					}
 				}
 			}
 		}
+		
+		
 		return null;
+		
 	}
 	
     /**
