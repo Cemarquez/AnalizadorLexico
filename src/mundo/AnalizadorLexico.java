@@ -65,10 +65,14 @@ public class AnalizadorLexico {
 			return token;
 		
 		// Intenta extraer un operador relacional
-				token = extraerOperadorRelacional(cod, i);
-				if ( token != null )
-					return token;
+		token = extraerOperadorRelacional(cod, i);
+		if ( token != null )
+			return token;
 		
+		//Intenta extaer un operador lógico
+		token = extraerOperadorLogico(cod, i);
+		if ( token != null )
+			return token;
 			
 		// Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
@@ -228,6 +232,38 @@ public class AnalizadorLexico {
 		return null;
 	}
 
+	 /**
+     * Intenta extraer un operador lógico de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer el operador de asignación  - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer el operador de asingación  - 0<=i<codigo.length()
+     * @return el token operador asignación o NULL, si el token en la posición dada no es un operador de asignación. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerOperadorLogico(String cod, int i) {
+		if(cod.charAt(i) == '~') {
+			int j=i+1;
+	        String lex =  cod.substring( i, j);			 
+			Token token = new Token( lex, Token.OPERADORLOGICO, j );
+			return token;
+			
+		}else if(cod.charAt(i) == 'ö') {
+			int j=i+1;
+	        String lex =  cod.substring( i, j);			 
+			Token token = new Token( lex, Token.OPERADORLOGICO, j );
+			
+			return token;
+		}else if(cod.charAt(i) == 'ä') {
+			int j=i+1;
+	        String lex =  cod.substring( i, j);			 
+			Token token = new Token( lex, Token.OPERADORLOGICO, j );
+			return token;
+			
+		}
+		
+		return null;
+	}
+	
     /**
      * Intenta extraer un operador de asignación de la cadena cod a partir de la posición i,
      * basándose en el Autómata
