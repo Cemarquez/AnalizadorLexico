@@ -79,6 +79,17 @@ public class AnalizadorLexico {
 		if ( token != null )
 			return token;
 			      
+		
+		//Intenta extaer un simbolo de apertura
+		token = extraerSimboloAbrir(cod, i);
+		if ( token != null )
+			return token;
+				
+		//Intenta extaer un simbolo de cierre
+		token = extraerSimboloCerrar(cod, i);
+		if ( token != null )
+			return token;
+		
 		// Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
 		return token;
@@ -264,6 +275,48 @@ public class AnalizadorLexico {
 		
 	}
 	
+	 /**
+     * Intenta extraer un simbolo de apertura de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer un identficador - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer un identificador  - 0<=indice<codigo.length()
+     * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerSimboloAbrir ( String cod, int i )
+	{
+		if(cod.charAt(i) == '«') {
+			int j= i + 1;
+			String lex = cod.substring(i,  j);
+			Token token = new Token( lex, Token.SIMBOLOABRIR, j );
+			return token;
+			
+		}
+		
+		return null;
+	}
+	
+	 /**
+     * Intenta extraer un simbolo de cierre de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer un identficador - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer un identificador  - 0<=indice<codigo.length()
+     * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerSimboloCerrar ( String cod, int i )
+	{
+		if(cod.charAt(i) == '»') {
+			int j= i + 1;
+			String lex = cod.substring(i,  j);
+			Token token = new Token( lex, Token.SIMBOLOCERRAR, j );
+			return token;
+			
+		}
+		
+		return null;
+	}
+	
     /**
      * Intenta extraer un identificador de la cadena cod a partir de la posición i,
      * basándose en el Autómata
@@ -272,7 +325,6 @@ public class AnalizadorLexico {
      * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
      * el lexema, el tipo y la posición del siguiente lexema.
      */
-		
 	public Token extraerIdentificador ( String cod, int i)
 	{
 		if( cod.charAt(i)=='_' ){
