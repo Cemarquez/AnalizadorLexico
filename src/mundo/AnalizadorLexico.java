@@ -90,6 +90,17 @@ public class AnalizadorLexico {
 		if ( token != null )
 			return token;
 		
+		
+		//Intenta extaer un simbolo terminal
+		token = extraerSimboloTerminal(cod, i);
+		if ( token != null )
+			return token;
+		
+		//Intenta extaer un separador de sentencia
+		token = extraerSeparadorSentencia(cod, i);
+		if ( token != null )
+			return token;
+		
 		// Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
 		return token;
@@ -283,8 +294,7 @@ public class AnalizadorLexico {
      * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
      * el lexema, el tipo y la posición del siguiente lexema.
      */
-	public Token extraerSimboloAbrir ( String cod, int i )
-	{
+	public Token extraerSimboloAbrir ( String cod, int i ) {
 		if(cod.charAt(i) == '«') {
 			int j= i + 1;
 			String lex = cod.substring(i,  j);
@@ -304,8 +314,7 @@ public class AnalizadorLexico {
      * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
      * el lexema, el tipo y la posición del siguiente lexema.
      */
-	public Token extraerSimboloCerrar ( String cod, int i )
-	{
+	public Token extraerSimboloCerrar ( String cod, int i ) {
 		if(cod.charAt(i) == '»') {
 			int j= i + 1;
 			String lex = cod.substring(i,  j);
@@ -317,6 +326,43 @@ public class AnalizadorLexico {
 		return null;
 	}
 	
+	
+	 /**
+     * Intenta extraer un simbolo terminal de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer un identficador - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer un identificador  - 0<=indice<codigo.length()
+     * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerSimboloTerminal ( String cod, int i) {
+		if( cod.charAt(i)=='¬' ){
+			int j=i+1;
+		    String lex =  cod.substring( i, j);			    
+		    Token token = new Token( lex, Token.SIMBOLOTERMINAL, j );
+			return token;			
+		}	
+		return null;
+	}
+	
+	/**
+     * Intenta extraer un separador de sentencia de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer un identficador - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer un identificador  - 0<=indice<codigo.length()
+     * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerSeparadorSentencia ( String cod, int i) {
+		if( cod.charAt(i)=='|' ){
+			int j=i+1;
+		    String lex =  cod.substring( i, j);			    
+		    Token token = new Token( lex, Token.SEPARADORSENTENCIA, j );
+			return token;			
+		}	
+		return null;
+	}
+	
     /**
      * Intenta extraer un identificador de la cadena cod a partir de la posición i,
      * basándose en el Autómata
@@ -325,8 +371,7 @@ public class AnalizadorLexico {
      * @return el token identificaror o NULL, si el token en la posición dada no es un identificador. El Token se compone de 
      * el lexema, el tipo y la posición del siguiente lexema.
      */
-	public Token extraerIdentificador ( String cod, int i)
-	{
+	public Token extraerIdentificador ( String cod, int i) {
 		if( cod.charAt(i)=='_' ){
 			int j=i+1;
 			while( j<cod.length() && esLetra(cod.charAt(j)) )		
@@ -337,7 +382,12 @@ public class AnalizadorLexico {
 		}	
 		return null;
 	}
+	
 
+	
+	
+	
+	
     /**
      * Extraer un lexema no reconocido de la cadena cod a partir de la posición i.
      * Antes de utilizar este método, debe haberse intentado todos los otros métodos para los otros tipos de token
@@ -346,8 +396,7 @@ public class AnalizadorLexico {
      * @return el token no reconocido. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
 
      */
-	public Token extraerNoReconocido ( String cod, int i)
-	{
+	public Token extraerNoReconocido ( String cod, int i) {
 		String lexema =  cod.substring( i, i + 1);
 		int j=i+1;
 		Token token = new Token( lexema, Token.NORECONOCIDO, j );
