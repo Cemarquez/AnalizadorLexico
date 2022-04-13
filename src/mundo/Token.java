@@ -26,8 +26,8 @@ public class Token {
     final public static String ENTERO = "Entero";
     final public static String OPERADORADITIVO = "Operador aditivo";
     final public static String OPERADORARITMETICO = "Operador aritmetico";
-    final public static String OPERADORRELACIONAL = "Operador ";
-    final public static String OPERADORLOGICO= "Operador ";
+    final public static String OPERADORRELACIONAL = "Operador Relacional";
+    final public static String OPERADORLOGICO= "Operador lógico";
     final public static String OPERADORASIGNACION = "Operador de asignación";
     final public static String SIMBOLOABRIR = "Simbolo de abrir";
     final public static String SIMBOLOCERRAR = "Simbolo de cerrar";
