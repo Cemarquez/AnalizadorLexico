@@ -101,9 +101,19 @@ public class AnalizadorLexico {
 		if ( token != null )
 			return token;
 		
+		//Intenta extaer una palabra reservada para diferentes usos
+		token = extraerPalabraReservadaDiferentesUsos(cod, i);
+		if ( token != null )
+			return token;
+		
+		//Intenta extaer una palabra reservada para tipo de dato
+		token = extraerPalabraReservadaTipoDato(cod, i);
+		if ( token != null )
+			return token;
+		
 		// Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
-		return token;
+			return token;
     }
 
 
@@ -384,9 +394,98 @@ public class AnalizadorLexico {
 	}
 	
 
+	/**
+     * Intenta extraer una palabra reservada para diferentes usos de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer el operador de asignación  - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer el operador de asingación  - 0<=i<codigo.length()
+     * @return el token palabra reservada diferentes usos o NULL, si el token en la posición dada no es una palabra reservada de diferentes usos. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerPalabraReservadaDiferentesUsos ( String cod, int i )
+	{
+		if(cod.charAt(i) == 'C' && (i+5) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'i' && cod.charAt(i+2) == 'c' && cod.charAt(i+3) == 'l' && cod.charAt(i+4) == 'o' && cod.charAt(i+5) == 'n') {
+				int j= i + 6;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_BUCLE, j );
+				return token;
+			}
+				
+		}else if(cod.charAt(i) == 'W' && (i+5) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'h' && cod.charAt(i+2) == 'a' && cod.charAt(i+3) == 't' && cod.charAt(i+4) == 'i' && cod.charAt(i+5) == 'f') {
+				int j= i + 6;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_DECISION, j );
+				return token;
+			}
+			
+		}else if(cod.charAt(i) == 'K' && (i+4) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'l' && cod.charAt(i+2) == 'a' && cod.charAt(i+3) == 's' && cod.charAt(i+4) == 's') {
+				int j= i + 5;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_CLASE, j );
+				return token;
+			}
+			
+		}
+		
+		return null;
+	}
 	
-	
-	
+	/**
+     * Intenta extraer una palabra reservada para tipo de dato de la cadena cod a partir de la posición i,
+     * basándose en el Autómata
+     * @param cod - código al cual se le va a intentar extraer el operador de asignación  - codigo!=null
+     * @param i - posición a partir de la cual se va a intentar extraer el operador de asingación  - 0<=i<codigo.length()
+     * @return el token palabra reservada tipo de dato o NULL, si el token en la posición dada no es una palabra reservada de tipo de dato. El Token se compone de 
+     * el lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerPalabraReservadaTipoDato ( String cod, int i )
+	{
+		if(cod.charAt(i) == 'e' && (i+2) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'n' && cod.charAt(i+2) == 't') {
+				int j= i + 3;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_ENTEROS, j );
+				return token;
+			}
+				
+		}else if(cod.charAt(i) == 'r' && (i+2) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'e' && cod.charAt(i+2) == 'l') {
+				int j= i + 3;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_REALES, j );
+				return token;
+			}
+			
+		}else if(cod.charAt(i) == 's' && (i+2) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'y' && cod.charAt(i+2) == 'm') {
+				int j= i + 3;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_CARACTERES, j );
+				return token;
+			}
+			
+		}else if(cod.charAt(i) == 'P' && (i+6) < cod.length()) {
+			
+			if (cod.charAt(i+1) == 'h' && cod.charAt(i+2) == 'r' && cod.charAt(i+3) == 'a' && cod.charAt(i+4) == 's' && cod.charAt(i+5) == 'e' && cod.charAt(i+6) == 's') {
+				int j= i + 7;
+				String lex = cod.substring(i,  j);
+				Token token = new Token( lex, Token.PALABRA_RESERVADA_CADENAS, j );
+				return token;
+			}
+			
+		}
+		
+		return null;
+	}
 	
     /**
      * Extraer un lexema no reconocido de la cadena cod a partir de la posición i.

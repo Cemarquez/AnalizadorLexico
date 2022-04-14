@@ -35,6 +35,15 @@ public class Token {
     final public static String SEPARADORSENTENCIA = "Separador de sentencia";
     final public static String IDENTIFICADOR = "Identificador";
     final public static String NORECONOCIDO = "No reconocido";
+
+    final public static String PALABRA_RESERVADA_BUCLE = "Bucle o ciclo";
+    final public static String PALABRA_RESERVADA_DECISION = "Decision";
+    final public static String PALABRA_RESERVADA_CLASE = "Clase";
+    
+    final public static String PALABRA_RESERVADA_ENTEROS = "Palabra reservada para enteros";
+    final public static String PALABRA_RESERVADA_REALES = "Palabra reservada para reales";
+    final public static String PALABRA_RESERVADA_CADENAS = "Palabra reservada para cadenas";
+    final public static String PALABRA_RESERVADA_CARACTERES = "Palabra reservada para caracteres";
     
  
     // -----------------------------------------------------------------
