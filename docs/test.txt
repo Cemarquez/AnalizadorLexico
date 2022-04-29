@@ -1,6 +1,14 @@
-[NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~
+«PLUS|DIFFPROD|↑↓↓↔↑↔/↔↔↔[NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~~öä↔PLUS↔DIFF↔»DIV
 
 	   CATEGORIA					    TOKEN			    EXPRESION_REGULAR		  CEBRI_JAMA		    SIG_JAVA
+  Operadores				      Operadores aritmeticos           (PLUSuDIFFuPRODuDIV)       PLUSDIFFPRODDIV              +-*/
+  Operadores					Operadores relacionales            (↑u↓u↓↔u↑↔u/↔u↔↔)          ↑↓↓↔↑↔/↔↔↔                 ><>=<=!===
+  Operadores					Operadores lógicos                   (~uöuä)			     ~öä                      !||&&
+  Operadores					Operador de asignación               (↔uPLUS↔uDIFF↔)			↔PLUS↔DIFF↔            =+=-=
+  Operadores					Simbolo de abrir                        «                          «                       {
+  Operadores					Simbolo de cerrar                       »                          »                       }
+  Operadores					Terminal o inicial                      ¬                          ¬                       ;
+  Operadores                                Separador de sentencia                |                          |                       |                       ,
 palabrasReservadasIdentificadores	   	       nombresVariables			        [M(LUD)*]	       [NombrePersona1]	         nombrePersona1
 palabrasReservadasIdentificadores	   	       nombresMetodos		   	       #NL*&(LUD)*#	      #obtenerNombre&01#         obtenerNombre
 palabrasReservadasIdentificadores	   	       nombresClases		   		1:DD*LL*_		 1:23Persona_	             Persona

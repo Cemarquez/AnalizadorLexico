@@ -56,6 +56,12 @@ public class AnalizadorLexico {
 	public Token extraerSiguienteToken( String cod, int i ) {
 		Token token;
 
+		//Intenta extraer un operador de asignación
+				token = extraerOperadorAsignacion( cod, i);
+				if ( token != null )
+					return token;
+		
+		
 		//Intenta extraer un operador aritmetico
 		token = extraerOperadorAritmetico( cod, i);
 		if ( token != null )
@@ -71,10 +77,7 @@ public class AnalizadorLexico {
 		if ( token != null )
 			return token;
 
-		//Intenta extraer un operador de asignación
-		token = extraerOperadorAsignacion( cod, i);
-		if ( token != null )
-			return token;
+		
 		
 		//Intenta extaer un simbolo de apertura
 		token = extraerSimboloAbrir(cod, i);
@@ -190,11 +193,14 @@ public class AnalizadorLexico {
 		}else if(cod.charAt(i) == 'D' && (i+1) < cod.length()) {
 			if(cod.charAt(i+1) == 'I') {
 				if((i+3) < cod.length()) {
-					if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ) {
-						int j=i+4;
-						String lex =  cod.substring( i, j);			 
-						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-						return token;
+					if(cod.charAt(i+2) == 'F' ) {
+						if(cod.charAt(i+3) == 'F') {
+							int j=i+4;
+							String lex =  cod.substring( i, j);			 
+							Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+							return token;
+						}
+						
 					}
 				}else if((i+2) < cod.length()) {
 					if(cod.charAt(i+2) == 'V') {
@@ -299,7 +305,12 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerOperadorAsignacion(String cod, int i) {
-		if(cod.charAt(i) == 'P' && (i+4) < cod.length()) {
+		if(cod.charAt(i) == '↔') {
+			int j= i + 1;
+			String lex = cod.substring(i,  j);
+			Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
+			return token;
+		}else if(cod.charAt(i) == 'P' && (i+4) < cod.length()) {
 			if (cod.charAt(i+1) == 'L' ) {
 				if(cod.charAt(i+2) == 'U') {
 					if(cod.charAt(i+3) == 'S' ) {
