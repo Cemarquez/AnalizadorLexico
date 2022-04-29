@@ -1,7 +1,7 @@
 [NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~
 
-			CATEGORIA									TOKEN							EXPRESION_REGULAR		   CEBRI_JAMA			  SIG_JAVA
-palabrasReservadasIdentificadores	   			   nombresVariables							[M(LUD)*]		 	[NombrePersona1]	   nombrePersona1
-palabrasReservadasIdentificadores	   				nombresMetodos		   				   #NL*&(LUD)*#		   #obtenerNombre&01#	   obtenerNombre
-palabrasReservadasIdentificadores	   			    nombresClases		   				    1:DD*LL*_		      1:23Persona_	           Persona
-		   sinCategoria				  palabraReservadaEstructuraCondicionalMultiple			~HANDLE~				~HANDLE~			   switch
+	   CATEGORIA					    TOKEN			    EXPRESION_REGULAR		  CEBRI_JAMA		    SIG_JAVA
+palabrasReservadasIdentificadores	   	       nombresVariables			        [M(LUD)*]	       [NombrePersona1]	         nombrePersona1
+palabrasReservadasIdentificadores	   	       nombresMetodos		   	       #NL*&(LUD)*#	      #obtenerNombre&01#         obtenerNombre
+palabrasReservadasIdentificadores	   	       nombresClases		   		1:DD*LL*_		 1:23Persona_	             Persona
+	  sinCategoria		 	palabraReservadaEstructuraCondicionalMultiple		~HANDLE~	           ~HANDLE~		     switch
