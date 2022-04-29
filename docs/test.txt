@@ -1,4 +1,4 @@
-«PLUS|DIFFPROD|↑↓↓↔↑↔/↔↔↔[NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~~öä↔PLUS↔DIFF↔»DIV
+«PLUS|DIFFPROD|↑↓↓↔↑↔/↔↔↔[NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~~öä↔PLUS↔DIFF↔»DIV I$113R$1.13CC$HOLA °t MUNDO$CC°l°f
 
 	   CATEGORIA					    TOKEN			    EXPRESION_REGULAR		  CEBRI_JAMA		    SIG_JAVA
   Operadores				      Operadores aritmeticos           (PLUSuDIFFuPRODuDIV)       PLUSDIFFPRODDIV              +-*/
@@ -13,3 +13,7 @@ palabrasReservadasIdentificadores	   	       nombresVariables			        [M(LUD)*
 palabrasReservadasIdentificadores	   	       nombresMetodos		   	       #NL*&(LUD)*#	      #obtenerNombre&01#         obtenerNombre
 palabrasReservadasIdentificadores	   	       nombresClases		   		1:DD*LL*_		 1:23Persona_	             Persona
 	  sinCategoria		 	palabraReservadaEstructuraCondicionalMultiple		~HANDLE~	           ~HANDLE~		     switch
+Valor de asignacion                     Enteros                                  (I$DD*)
+Valor de asignacion                     Reales                                   (R$)(-U+)(DD*)(.)(DD*)
+Valor de asignacion                     Cadena de Catacteres                     (CC$)((C.S)U(°)(t U l U f) U ε)*($CC)
+Valor de asignacion                     Caracteres                               ((C.S) U (°)(t U l U f) U ε)
