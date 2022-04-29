@@ -23,29 +23,32 @@ public class Token {
     /**
      * Constantes para modelar los posibles tipos de token que se van a analizar
      */
-    final public static String ENTERO = "Entero";
-    final public static String OPERADORADITIVO = "Operador aditivo";
-    final public static String OPERADORARITMETICO = "Operador aritmetico";
-    final public static String OPERADORRELACIONAL = "Operador Relacional";
-    final public static String OPERADORLOGICO= "Operador lógico";
-    final public static String OPERADORASIGNACION = "Operador de asignación";
-    final public static String SIMBOLOABRIR = "Simbolo de abrir";
-    final public static String SIMBOLOCERRAR = "Simbolo de cerrar";
-    final public static String SIMBOLOTERMINAL = "Simbolo terminal";
-    final public static String SEPARADORSENTENCIA = "Separador de sentencia";
-    final public static String IDENTIFICADOR = "Identificador";
-    final public static String NORECONOCIDO = "No reconocido";
+    final public static String OPERADOR_ARITMETICO = "Operador aritmetico";
+    final public static String OPERADOR_RELACIONAL = "Operador aelacional";
+    final public static String OPERADOR_LOGICO= "Operador logico";
+    final public static String OPERADOR_ASIGNACION = "Operador de asignación";
+    final public static String SIMBOLO_ABRIR = "Simbolo de abrir";
+    final public static String SIMBOLO_CERRAR = "Simbolo de cerrar";
+    final public static String SIMBOLO_TERMINAL = "Simbolo terminal";
+    final public static String SEPARADOR_SENTENCIA = "Separador de sentencia";
 
-    final public static String PALABRA_RESERVADA_BUCLE = "Bucle o ciclo";
-    final public static String PALABRA_RESERVADA_DECISION = "Decision";
-    final public static String PALABRA_RESERVADA_CLASE = "Clase";
+    final public static String PALABRA_RESERVADA_BUCLE_CICLO = "Palabra reservada para bucle o ciclo";
+    final public static String PALABRA_RESERVADA_DECISION = "Palabra reservada para decision";
+    final public static String PALABRA_RESERVADA_CLASE = "Palabra reservada para la clase";
+    
+    final public static String IDENTIFICADOR_NOMBRE_VARIABLE = "Identificador para los nombres de las variables";
+    final public static String IDENTIFICADOR_NOMBRE_METODO = "Identificador para los nombres de los metodos";
+    final public static String IDENTIFICADOR_NOMBRE_CLASE = "Identificador para los nombres de las clases";
     
     final public static String PALABRA_RESERVADA_ENTEROS = "Palabra reservada para enteros";
     final public static String PALABRA_RESERVADA_REALES = "Palabra reservada para reales";
-    final public static String PALABRA_RESERVADA_CADENAS = "Palabra reservada para cadenas";
+    final public static String PALABRA_RESERVADA_CADENAS = "Palabra reservada para cadenas de caracteres";
     final public static String PALABRA_RESERVADA_CARACTERES = "Palabra reservada para caracteres";
     
- 
+    final public static String PALABRA_RESERVADA_ESTRUCTURA_CONDICIONAL_MULTIPLE = "Palabra reservada para la estructura condicional multiple";
+    
+    final public static String NO_RECONOCIDO = "No reconocido";
+    
     // -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
@@ -119,8 +122,4 @@ public class Token {
     {
         return tipo;
     }
-
-
-
-
 }
