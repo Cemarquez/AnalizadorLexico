@@ -170,12 +170,22 @@ public class AnalizadorLexico {
 		if(cod.charAt(i) == 'P' && (i+3) < cod.length()) {
 			int j= i + 4;
 			String lex = cod.substring(i,  j);
-			if(cod.charAt(i+1) == 'L' && cod.charAt(i+2) == 'U' && cod.charAt(i+3) == 'S') {
-				Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-				return token;
-			}else if(cod.charAt(i+1) == 'R' && cod.charAt(i+2) == 'O' && cod.charAt(i+3) == 'D') {
-				Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-				return token;
+			if(cod.charAt(i+1) == 'L' ) {
+				if(cod.charAt(i+2) == 'U') {
+					if(cod.charAt(i+3) == 'S') {
+						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+						return token;
+					}
+				}
+				
+			}else if(cod.charAt(i+1) == 'R' ) {
+				if(cod.charAt(i+2) == 'O') {
+					if(cod.charAt(i+3) == 'D') {
+						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+						return token;
+					}
+				}
+				
 			}
 		}else if(cod.charAt(i) == 'D' && (i+1) < cod.length()) {
 			if(cod.charAt(i+1) == 'I') {
@@ -290,17 +300,23 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerOperadorAsignacion(String cod, int i) {
 		if(cod.charAt(i) == 'P' && (i+4) < cod.length()) {
-			if (cod.charAt(i+1) == 'L' && cod.charAt(i+2) == 'U' && cod.charAt(i+3) == 'S' ) {
-				if(cod.charAt(i+4) == '↔') {
-					int j= i + 5;
-					String lex = cod.substring(i,  j);
-					Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
-					return token;
+			if (cod.charAt(i+1) == 'L' ) {
+				if(cod.charAt(i+2) == 'U') {
+					if(cod.charAt(i+3) == 'S' ) {
+						if(cod.charAt(i+4) == '↔') {
+							int j= i + 5;
+							String lex = cod.substring(i,  j);
+							Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
+							return token;
+						}
+					}
 				}
+				
 			} 
 		}else if(cod.charAt(i) == 'D' && (i+4) < cod.length()) {
 			if(cod.charAt(i+1) == 'I') {
-				if(cod.charAt(i+2) == 'F' && cod.charAt(i+3) == 'F' ){
+				if(cod.charAt(i+2) == 'F' ){
+					if(cod.charAt(i+3) == 'F' )
 					if(cod.charAt(i+4) == '↔') {
 						int j= i + 5;
 						String lex = cod.substring(i,  j);
