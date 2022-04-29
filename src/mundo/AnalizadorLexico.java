@@ -423,11 +423,16 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerSeparadorSentencia(String cod, int i) {
-		if(cod.charAt(i)=='|') {
-			int j=i+1;
-			String lex =  cod.substring( i, j);			    
-			Token token = new Token( lex, Token.SEPARADOR_SENTENCIA, j );
-			return token;			
+		if(cod.charAt(i)=='|' ) {
+			if((i+1) < cod.length()  && (cod.charAt(i+1) == 't' || cod.charAt(i+1) == 'l'  || cod.charAt(i+1) == 'f')) {
+				return null;
+			}else {
+				int j=i+1;
+				String lex =  cod.substring( i, j);			    
+				Token token = new Token( lex, Token.SEPARADOR_SENTENCIA, j );
+				return token;
+			}
+			
 		}	
 		return null;
 	}
@@ -683,7 +688,7 @@ public class AnalizadorLexico {
 					}
 				}
 				
-				if(j < cod.length() && cod.charAt(j) == '°') {
+				if(j < cod.length() && cod.charAt(j) == '|') {
 					j += 1;
 					if(j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
 						j += 1;
@@ -718,7 +723,7 @@ public class AnalizadorLexico {
 	public Token extraerCaracteres(String cod, int i) {
 		int j = i;
 		
-		if(j < cod.length() && cod.charAt(j) == '°' && j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
+		if(j < cod.length() && cod.charAt(j) == '|' && j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
 				j += 2;
 				String lex =  cod.substring( i, j);			    
 				Token token = new Token( lex, Token.VALOR_ASIGNACION_CARACTERES, j );
