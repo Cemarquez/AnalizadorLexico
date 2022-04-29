@@ -47,6 +47,11 @@ public class Token {
     
     final public static String PALABRA_RESERVADA_ESTRUCTURA_CONDICIONAL_MULTIPLE = "Palabra reservada para la estructura condicional multiple";
     
+    final public static String VALOR_ASIGNACION_ENTEROS = "Valor de asignacion de enteros";
+    final public static String VALOR_ASIGNACION_REALES = "Valor de asignacion para los numero reales";
+    final public static String VALOR_ASIGNACION_CADENA = "Valor de asignacion para una cadena de caracteres";
+    final public static String VALOR_ASIGNACION_CARACTERES = "Valor de asignacion para caracteres";
+    
     final public static String NO_RECONOCIDO = "No reconocido";
     
     // -----------------------------------------------------------------

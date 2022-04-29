@@ -153,6 +153,26 @@ public class AnalizadorLexico {
 		token = extraerPalabraReservadaEstructuraCondicionalMultiple(cod, i);
 		if ( token != null )
 			return token;
+		
+		//Intenta extraer un numero entero
+		token = extrearEntero(cod, i);
+		if (token != null)
+			return token;
+		
+		//Intenta extraer un numero real
+		token = extrearReal(cod, i);
+		if (token != null)
+			return token;
+		
+		//Intenta extraer una cadena de caracteres
+		token = extraerCadenaCaracteres(cod, i);
+		if (token != null)
+			return token;
+		
+		//Intenta extraer un caracter
+		token = extraerCaracteres(cod, i);
+		if (token != null)
+			return token;
 
 		//Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
@@ -580,7 +600,133 @@ public class AnalizadorLexico {
 	
 	//---------------------------VALOR DE ASIGNACIÓN--------------------------------
 	
+	 /**
+     * Extrae el valor de asignacion para tipo de dato entero
+     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_ENTEROS - codigo!=null
+     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_ENTEROS  - 0<=indice<codigo.length()
+     * @return el valor de asignacion del entero. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extrearEntero(String cod, int i) {
+		if(cod.charAt(i) == 'I' && cod.charAt(i+1) == '$') {
+			int j = i+2;
+			if(j < cod.length() && esDigito(cod.charAt(j))) {
+				while(j < cod.length() && esDigito(cod.charAt(j)) ) {
+					j ++;	
+				}
+				
+				String lex =  cod.substring( i, j);			    
+				Token token = new Token( lex, Token.VALOR_ASIGNACION_ENTEROS, j );
+				return token;
+			}
+		}
+		
+		return null;
+	}
+	 //I$113 R$1.13 CC$HOLA °t MUNDO$CC °l °f
+	 /**
+     * Extrae el valor de asignacion para los numeros reales
+     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_ENTEROS - codigo!=null
+     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_ENTEROS  - 0<=indice<codigo.length()
+     * @return el valor de asignacion del entero. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extrearReal(String cod, int i) {
+		if(cod.charAt(i) == 'R' && cod.charAt(i+1) == '$') {
+			int j = i+2;
+			
+			if(j < cod.length() && cod.charAt(j) == '-') {
+				j++;
+			}
+			
+			if(j < cod.length()) {
+
+				if(esDigito(cod.charAt(j))) {
+					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
+						j ++;	
+					}
+					
+				}
+									
+				if(j < cod.length() && cod.charAt(j) == '.') {
+					j++;
+				}
+				
+				if(j < cod.length() && esDigito(cod.charAt(j))) {
+					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
+						j ++;	
+					}
+					
+					String lex =  cod.substring( i, j);			    
+					Token token = new Token( lex, Token.VALOR_ASIGNACION_REALES, j );
+			    	return token;
+				}
+					
+			}
+		}
+		return null;
+	}
 	
+    /**
+     * Extraer un lexema de una cadena de caracteres de la cadena cod a partir de la posición i.
+     * @param cod - código al cual se le va a extraer el token de valor de asignacion para una cadena de caracteres
+     * @param i - posición a partir de la cual se va a extraer el token no reconocido  - 0<=indice<codigo.length()
+     * @return el token de la cadena de carcteres. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerCadenaCaracteres(String cod, int i) {
+		if((i+2) < cod.length() && cod.charAt(i) == 'C' && cod.charAt(i+1) == 'C' && cod.charAt(i+2) == '$') {
+			int j = i+3;
+			
+			while(cod.charAt(j) != '$') {
+				
+				if(j < cod.length() && esLetra(cod.charAt(j)) || cod.charAt(j) == ' ') {
+					while(j < cod.length() && esLetra(cod.charAt(j)) || cod.charAt(j) == ' ') {
+						j ++;	
+					}
+				}
+				
+				if(j < cod.length() && cod.charAt(j) == '°') {
+					j += 1;
+					if(j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
+						j += 1;
+					}
+				}
+				
+				if(j < cod.length() && esDigito(cod.charAt(j))) {
+					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
+						j ++;	
+					}
+				}
+				
+			}
+			
+			if((j+2) < cod.length() && cod.charAt(j) == '$' && cod.charAt(j+1) == 'C' && cod.charAt(j+2) == 'C') {
+				j += 3;
+				String lex =  cod.substring( i, j);			    
+				Token token = new Token( lex, Token.VALOR_ASIGNACION_CADENA, j );
+		    	return token;
+			}
+		}
+		
+		return null;
+	}
+	
+	 /**
+     * Extrae el valor de asignacion para caracteres
+     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_CARACTERES - codigo!=null
+     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_CARACTERES  - 0<=indice<codigo.length()
+     * @return el valor de asignacion de caracteres. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
+     */
+	public Token extraerCaracteres(String cod, int i) {
+		int j = i;
+		
+		if(j < cod.length() && cod.charAt(j) == '°' && j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
+				j += 2;
+				String lex =  cod.substring( i, j);			    
+				Token token = new Token( lex, Token.VALOR_ASIGNACION_CARACTERES, j );
+		    	return token;
+		}
+		
+		return null;
+	}
 
 	//---------------------------PALABRAS RESERVADAS: TIPO DE DATO--------------------------------
 	
