@@ -448,12 +448,26 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosBucleCiclo(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'C' && (i+5) < cod.length()) {
-			if (cod.charAt(i+1) == 'i' && cod.charAt(i+2) == 'c' && cod.charAt(i+3) == 'l' && cod.charAt(i+4) == 'o' && cod.charAt(i+5) == 'n') {
-				int j= i + 6;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_BUCLE_CICLO, j );
-				return token;
+			j = i + 1;
+			if (cod.charAt(j) == 'i') {
+				j++;
+				if(cod.charAt(j) == 'c') {
+					j++;
+					if(cod.charAt(j) == 'l') {
+						j++;
+						if(cod.charAt(j) == 'o') {
+							j++;
+							if(cod.charAt(i+5) == 'n') {
+								j++;
+								String lex = cod.substring(i,  j);
+								Token token = new Token( lex, Token.PALABRA_RESERVADA_BUCLE_CICLO, j );
+								return token;
+							}
+						}
+					}
+				}
 			}
 		}
 		return null;
@@ -468,12 +482,26 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosDecision(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'W' && (i+5) < cod.length()) {
-			if (cod.charAt(i+1) == 'h' && cod.charAt(i+2) == 'a' && cod.charAt(i+3) == 't' && cod.charAt(i+4) == 'i' && cod.charAt(i+5) == 'f') {
-				int j= i + 6;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_DECISION, j );
-				return token;
+			j= i + 1;
+			if (cod.charAt(j) == 'h') {
+				j++;
+				if(cod.charAt(j) == 'a') {
+					j++;
+					if(cod.charAt(j) == 't') {
+						j++;
+						if(cod.charAt(j) == 'i') {
+							j++;
+							if(cod.charAt(j) == 'f') {
+								j++;
+								String lex = cod.substring(i,  j);
+								Token token = new Token( lex, Token.PALABRA_RESERVADA_DECISION, j );
+								return token;
+							}
+						}
+					}
+				}
 			}
 		}
 		return null;
@@ -488,12 +516,23 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosClase(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'K' && (i+4) < cod.length()) {
-			if (cod.charAt(i+1) == 'l' && cod.charAt(i+2) == 'a' && cod.charAt(i+3) == 's' && cod.charAt(i+4) == 's') {
-				int j= i + 5;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_CLASE, j );
-				return token;
+			j = i + 1;
+			if (cod.charAt(j) == 'l') {
+				j++;
+				if(cod.charAt(j) == 'a') {
+					j++;
+					if(cod.charAt(j) == 's') {
+						j++;
+						if(cod.charAt(j) == 's') {
+							j++;
+							String lex = cod.substring(i,  j);
+							Token token = new Token( lex, Token.PALABRA_RESERVADA_CLASE, j );
+							return token;
+						}
+					}
+				}
 			}
 		}
 		return null;
@@ -744,12 +783,17 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaTipoDatoEntero(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'e' && (i+2) < cod.length()) {
-			if (cod.charAt(i+1) == 'n' && cod.charAt(i+2) == 't') {
-				int j= i + 3;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_ENTEROS, j );
-				return token;
+			j= i + 1;
+			if (cod.charAt(j) == 'n') {
+				j++;
+				if(cod.charAt(j) == 't') {
+					j++;
+					String lex = cod.substring(i,  j);
+					Token token = new Token( lex, Token.PALABRA_RESERVADA_ENTEROS, j );
+					return token;
+				}
 			}
 		}
 		return null;
@@ -764,12 +808,17 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaTipoDatoReal(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'r' && (i+2) < cod.length()) {
-			if (cod.charAt(i+1) == 'e' && cod.charAt(i+2) == 'l') {
-				int j= i + 3;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_REALES, j );
-				return token;
+			j= i + 1;
+			if (cod.charAt(j) == 'e') {
+				j++;
+				if(cod.charAt(j) == 'l') {
+					j++;
+					String lex = cod.substring(i,  j);
+					Token token = new Token( lex, Token.PALABRA_RESERVADA_REALES, j );
+					return token;
+				}
 			}
 		}
 		return null;
@@ -784,12 +833,29 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaTipoDatoCadena(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 'P' && (i+6) < cod.length()) {
-			if (cod.charAt(i+1) == 'h' && cod.charAt(i+2) == 'r' && cod.charAt(i+3) == 'a' && cod.charAt(i+4) == 's' && cod.charAt(i+5) == 'e' && cod.charAt(i+6) == 's') {
-				int j= i + 7;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_CADENAS, j );
-				return token;
+			j = i + 1;
+			if (cod.charAt(j) == 'h') {
+				j++;
+				if(cod.charAt(j) == 'r'){
+					j++;
+					if(cod.charAt(j) == 'a') {
+						j++;
+						if(cod.charAt(j) == 's') {
+							j++;
+							if(cod.charAt(j) == 'e') {
+								j++;
+								if(cod.charAt(j) == 's') {
+									j++;
+									String lex = cod.substring(i,  j);
+									Token token = new Token( lex, Token.PALABRA_RESERVADA_CADENAS, j );
+									return token;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		return null;
@@ -804,12 +870,18 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerPalabraReservadaTipoDatoCaracter(String cod, int i) {
+		int j;
 		if(cod.charAt(i) == 's' && (i+2) < cod.length()) {
-			if (cod.charAt(i+1) == 'y' && cod.charAt(i+2) == 'm') {
-				int j= i + 3;
-				String lex = cod.substring(i,  j);
-				Token token = new Token( lex, Token.PALABRA_RESERVADA_CARACTERES, j );
-				return token;
+			j = i +1;
+			if (cod.charAt(j) == 'y') {
+				j++;
+				if(cod.charAt(j) == 'm')
+				{
+					j++;
+					String lex = cod.substring(i,  j);
+					Token token = new Token( lex, Token.PALABRA_RESERVADA_CARACTERES, j );
+					return token;
+				}
 			}
 		}
 		return null;

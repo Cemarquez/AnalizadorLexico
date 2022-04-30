@@ -17,3 +17,10 @@ Valor de asignacion                     Enteros                                 
 Valor de asignacion                     Reales                               (R$)(-U+)(DD*)(.)(DD*)          R$1.13                   1.13
 Valor de asignacion                     Cadena de Catacteres          (CC$)((C.S)U(°)(t U l U f) U ε)*($CC) CC$HOLA |t MUNDO$CC        "Hola mundo"
 Valor de asignacion                     Caracteres                         ((C.S) U (°)(t U l U f) U ε)     |l|f  C.S                  hola, \n
+PalabrasReservadasDiferentesUsos        Palabra reservada ciclo o blucle        (Ciclon)                    Ciclon                  for, while
+PalabrasReservadasDiferentesUsos        Palabra para desicion                   (Whatif)                    Whatif                      if
+PalabrasReservadasDiferentesUsos        Palabra para la clase                   (Klass)                     Klass				  class
+PalabrasReservadasTipoDato		    Palabra para los enteros                (ent)				ent				   int
+PalabrasReservadasTipoDato		    Palabra para los reales			  (rel)				rel				  double
+PalabrasReservadasTipoDato		    Palabra para cadena de caracteres       (Phrases)				Phrases			  String
+PalabrasReservadasTipoDato		    Palabra para los caracteres 		  (sym)				sym   			   char
