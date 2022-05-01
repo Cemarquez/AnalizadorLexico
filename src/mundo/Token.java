@@ -7,6 +7,12 @@
  * Ejercicio: AnalizadorLexico
  * Diseño original por: Leonardo A. Hernández R. - Agosto 2008 - Marzo 2009
  * Modificado y usado por: Claudia E. Quiceno R- Julio 2021
+ * Presentado por:
+ * Mario Alejandro Tabares Ramírez
+ * César Esteban Márquez
+ * Brian David Giraldo
+ * Jhan Carlos Martínez
+ * 4/30/2022
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -40,17 +46,17 @@ public class Token {
     final public static String IDENTIFICADOR_NOMBRE_METODO = "Identificador para los nombres de los metodos";
     final public static String IDENTIFICADOR_NOMBRE_CLASE = "Identificador para los nombres de las clases";
     
+    final public static String VALOR_ASIGNACION_ENTEROS = "Valor de asignacion de enteros";
+    final public static String VALOR_ASIGNACION_REALES = "Valor de asignacion de numeros reales";
+    final public static String VALOR_ASIGNACION_CADENA = "Valor de asignacion de cadena de caracteres";
+    final public static String VALOR_ASIGNACION_CARACTERES = "Valor de asignacion de caracter";
+    
     final public static String PALABRA_RESERVADA_ENTEROS = "Palabra reservada para enteros";
     final public static String PALABRA_RESERVADA_REALES = "Palabra reservada para reales";
     final public static String PALABRA_RESERVADA_CADENAS = "Palabra reservada para cadenas de caracteres";
     final public static String PALABRA_RESERVADA_CARACTERES = "Palabra reservada para caracteres";
     
     final public static String PALABRA_RESERVADA_ESTRUCTURA_CONDICIONAL_MULTIPLE = "Palabra reservada para la estructura condicional multiple";
-    
-    final public static String VALOR_ASIGNACION_ENTEROS = "Valor de asignacion de enteros";
-    final public static String VALOR_ASIGNACION_REALES = "Valor de asignacion para los numero reales";
-    final public static String VALOR_ASIGNACION_CADENA = "Valor de asignacion para una cadena de caracteres";
-    final public static String VALOR_ASIGNACION_CARACTERES = "Valor de asignacion para caracteres";
     
     final public static String NO_RECONOCIDO = "No reconocido";
     

@@ -7,6 +7,13 @@
  * Ejercicio: AnalizadorLexico
  * Diseño original por: Leonardo A. Hernández R. - Agosto 2008 - Marzo 2009
  * Modificado y usado por: Claudia E. Quiceno R- Julio 2021
+ * 
+ * Presentado por:
+ * Mario Alejandro Tabares Ramírez
+ * César Esteban Márquez
+ * Brian David Giraldo
+ * Jhan Carlos Martínez
+ * 4/30/2022
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -56,12 +63,6 @@ public class AnalizadorLexico {
 	public Token extraerSiguienteToken( String cod, int i ) {
 		Token token;
 
-		//Intenta extraer un operador de asignación
-				token = extraerOperadorAsignacion( cod, i);
-				if ( token != null )
-					return token;
-		
-		
 		//Intenta extraer un operador aritmetico
 		token = extraerOperadorAritmetico( cod, i);
 		if ( token != null )
@@ -72,48 +73,51 @@ public class AnalizadorLexico {
 		if ( token != null )
 			return token;
 
-		//Intenta extaer un operador lógico
+		//Intenta extraer un operador lógico
 		token = extraerOperadorLogico(cod, i);
 		if ( token != null )
 			return token;
 
-		
-		
-		//Intenta extaer un simbolo de apertura
+		//Intenta extraer un operador de asignación
+		token = extraerOperadorAsignacion( cod, i);
+		if ( token != null )
+			return token;
+
+		//Intenta extraer un simbolo de apertura
 		token = extraerSimboloAbrir(cod, i);
 		if ( token != null )
 			return token;
 
-		//Intenta extaer un simbolo de cierre
+		//Intenta extraer un simbolo de cierre
 		token = extraerSimboloCerrar(cod, i);
 		if ( token != null )
 			return token;
 
-		//Intenta extaer un simbolo terminal
+		//Intenta extraer un simbolo terminal
 		token = extraerSimboloTerminal(cod, i);
 		if ( token != null )
 			return token;
 
-		//Intenta extaer un separador de sentencia
+		//Intenta extraer un separador de sentencia
 		token = extraerSeparadorSentencia(cod, i);
 		if ( token != null )
 			return token;
 
-		//Intenta extaer una palabra reservada para diferentes usos para bucle o ciclo
+		//Intenta extraer una palabra reservada para diferentes usos para bucle o ciclo
 		token = extraerPalabraReservadaDiferentesUsosBucleCiclo(cod, i);
 		if ( token != null )
 			return token;
 
-		//Intenta extaer una palabra reservada para diferentes usos para decisión
+		//Intenta extraer una palabra reservada para diferentes usos para decisión
 		token = extraerPalabraReservadaDiferentesUsosDecision(cod, i);
 		if ( token != null )
 			return token;
-		
-		//Intenta extaer una palabra reservada para diferentes usos para la clase
+
+		//Intenta extraer una palabra reservada para diferentes usos para la clase
 		token = extraerPalabraReservadaDiferentesUsosClase(cod, i);
 		if ( token != null )
 			return token;
-		
+
 		//Intenta extraer una palabra reservada de identificador para nombres de variables
 		token = extraerIdentificadorNombreVariable(cod, i);
 		if ( token != null )
@@ -148,37 +152,37 @@ public class AnalizadorLexico {
 		token = extraerPalabraReservadaTipoDatoCaracter(cod, i);
 		if ( token != null )
 			return token;
-		
+
+		//Intenta extraer un valor de asignacion de un numero entero
+		token = extraerValorAsignacionEntero(cod, i);
+		if (token != null)
+			return token;
+
+		//Intenta extraer un valor de asignacion de un numero real
+		token = extraerValorAsignacionReal(cod, i);
+		if (token != null)
+			return token;
+
+		//Intenta extraer un valor de asignacion de una cadena de caracteres
+		token = extraerValorAsignacionCadenaCaracteres(cod, i);
+		if (token != null)
+			return token;
+
+		//Intenta extraer un valor de asignacion de un caracter
+		token = extraerValorAsignacionCaracter(cod, i);
+		if (token != null)
+			return token;
+
 		//Intenta extraer una palabra reservada para estructura condicional multiple
 		token = extraerPalabraReservadaEstructuraCondicionalMultiple(cod, i);
 		if ( token != null )
-			return token;
-		
-		//Intenta extraer un numero entero
-		token = extrearEntero(cod, i);
-		if (token != null)
-			return token;
-		
-		//Intenta extraer un numero real
-		token = extrearReal(cod, i);
-		if (token != null)
-			return token;
-		
-		//Intenta extraer una cadena de caracteres
-		token = extraerCadenaCaracteres(cod, i);
-		if (token != null)
-			return token;
-		
-		//Intenta extraer un caracter
-		token = extraerCaracteres(cod, i);
-		if (token != null)
 			return token;
 
 		//Extrae un token no reconocido
 		token = extraerNoReconocido( cod, i);
 		return token;
 	}
-	
+
 	//---------------------------OPERADORES-------------------------------
 
 	/**
@@ -190,45 +194,56 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerOperadorAritmetico(String cod, int i) {
-		if(cod.charAt(i) == 'P' && (i+3) < cod.length()) {
-			int j= i + 4;
-			String lex = cod.substring(i,  j);
-			if(cod.charAt(i+1) == 'L' ) {
-				if(cod.charAt(i+2) == 'U') {
-					if(cod.charAt(i+3) == 'S') {
-						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-						return token;
-					}
-				}
-				
-			}else if(cod.charAt(i+1) == 'R' ) {
-				if(cod.charAt(i+2) == 'O') {
-					if(cod.charAt(i+3) == 'D') {
-						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-						return token;
-					}
-				}
-				
-			}
-		}else if(cod.charAt(i) == 'D' && (i+1) < cod.length()) {
-			if(cod.charAt(i+1) == 'I') {
-				if((i+3) < cod.length()) {
-					if(cod.charAt(i+2) == 'F' ) {
-						if(cod.charAt(i+3) == 'F') {
-							int j=i+4;
-							String lex =  cod.substring( i, j);			 
-							Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
-							return token;
+		int j;
+		String lex;
+		if(cod.charAt(i) == 'P') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == 'L') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == 'U') {
+					j++;
+					if(j < cod.length() && cod.charAt(j) == 'S') {
+						j++;
+						if(j < cod.length() && cod.charAt(j) == '↔') {
+							return extraerOperadorAsignacion(cod, i);
 						}
-						
-					}
-				}else if((i+2) < cod.length()) {
-					if(cod.charAt(i+2) == 'V') {
-						int j=i+3;
-						String lex = cod.substring(i, j);			 
+						lex = cod.substring(i, j);
 						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
 						return token;
 					}
+				}
+			}else if(j < cod.length() && cod.charAt(j) == 'R') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == 'O') {
+					j++;
+					if(j < cod.length() && cod.charAt(j) == 'D') {
+						j++;
+						lex = cod.substring(i, j);
+						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+						return token;
+					}
+				}
+			}
+		}else if(cod.charAt(i) == 'D') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == 'I') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == 'F') {
+					j++;
+					if(j < cod.length() && cod.charAt(j) == 'F') {
+						j++;
+						if(j < cod.length() && cod.charAt(j) == '↔') {
+							return extraerOperadorAsignacion(cod, i);
+						}
+						lex = cod.substring( i, j);			 
+						Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+						return token;
+					}
+				}else if(j < cod.length() && cod.charAt(j) == 'V') {
+					j++;
+					lex = cod.substring(i, j);			 
+					Token token = new Token( lex, Token.OPERADOR_ARITMETICO, j );
+					return token;
 				}
 			}
 		}
@@ -244,39 +259,43 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerOperadorRelacional(String cod, int i) {
+		int j;
+		String lex;
 		if(cod.charAt(i) == '↑') {
-			if(cod.charAt(i+1) == '↔') {
-				int j=i+2;
-				String lex =  cod.substring( i, j);			 
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '↔') {
+				j++;
+				lex = cod.substring(i, j);			 
 				Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 				return token;
 			}
-			int j=i+1;
-			String lex =  cod.substring( i, j);			 
+			lex = cod.substring(i, j);			 
 			Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 			return token;
 		}else if(cod.charAt(i) == '↓') {
-			if(cod.charAt(i+1) == '↔') {
-				int j=i+2;
-				String lex =  cod.substring( i, j);			 
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '↔') {
+				j++;
+				lex = cod.substring(i, j);			 
 				Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 				return token;
 			}
-			int j=i+1;
-			String lex =  cod.substring( i, j);			 
+			lex = cod.substring( i, j);			 
 			Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 			return token;
-		}else if(cod.charAt(i) == '↔' && (i+1) < cod.length()) {
-			if(cod.charAt(i+1) == '↔') {
-				int j=i+2;
-				String lex =  cod.substring( i, j);			 
+		}else if(cod.charAt(i) == '↔') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '↔') {
+				j++;
+				lex = cod.substring(i, j);			 
 				Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 				return token;
 			}
 		}else if(cod.charAt(i) == '/') {
-			if(cod.charAt(i+1) == '↔') {
-				int j=i+2;
-				String lex =  cod.substring( i, j);			 
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '↔') {
+				j++;
+				lex = cod.substring(i, j);			 
 				Token token = new Token( lex, Token.OPERADOR_RELACIONAL, j );
 				return token;
 			}
@@ -293,23 +312,25 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerOperadorLogico(String cod, int i) {
+		int j;
+		String lex;
 		if(cod.charAt(i) == '~') {
 			if(verificarPalabraReservadaEstructuraCondicionalMultiple(cod, i)) {
 				return extraerPalabraReservadaEstructuraCondicionalMultiple(cod, i);
 			}else {
-				int j=i+1;
-				String lex = cod.substring( i, j);			 
+				j = i + 1;
+				lex = cod.substring(i, j);			 
 				Token token = new Token( lex, Token.OPERADOR_LOGICO, j );
 				return token;
 			}
 		}else if(cod.charAt(i) == 'ö') {
-			int j=i+1;
-			String lex = cod.substring( i, j);			 
+			j = i + 1;
+			lex = cod.substring(i, j);			 
 			Token token = new Token( lex, Token.OPERADOR_LOGICO, j );
 			return token;
 		}else if(cod.charAt(i) == 'ä') {
-			int j=i+1;
-			String lex = cod.substring( i, j);			 
+			j = i + 1;
+			lex = cod.substring(i, j);			 
 			Token token = new Token( lex, Token.OPERADOR_LOGICO, j );
 			return token;	
 		}
@@ -325,34 +346,44 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerOperadorAsignacion(String cod, int i) {
+		int j;
+		String lex;
 		if(cod.charAt(i) == '↔') {
-			int j= i + 1;
-			String lex = cod.substring(i,  j);
+			j = i + 1;
+			lex = cod.substring(i, j);
 			Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
 			return token;
-		}else if(cod.charAt(i) == 'P' && (i+4) < cod.length()) {
-			if (cod.charAt(i+1) == 'L' ) {
-				if(cod.charAt(i+2) == 'U') {
-					if(cod.charAt(i+3) == 'S' ) {
-						if(cod.charAt(i+4) == '↔') {
-							int j= i + 5;
-							String lex = cod.substring(i,  j);
+		}else if(cod.charAt(i) == 'P') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'L') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == 'U') {
+					j++;
+					if(j < cod.length() && cod.charAt(j) == 'S') {
+						j++;
+						if(j < cod.length() && cod.charAt(j) == '↔') {
+							j++;
+							lex = cod.substring(i, j);
 							Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
 							return token;
 						}
 					}
 				}
-				
 			} 
-		}else if(cod.charAt(i) == 'D' && (i+4) < cod.length()) {
-			if(cod.charAt(i+1) == 'I') {
-				if(cod.charAt(i+2) == 'F' ){
-					if(cod.charAt(i+3) == 'F' )
-					if(cod.charAt(i+4) == '↔') {
-						int j= i + 5;
-						String lex = cod.substring(i,  j);
-						Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
-						return token;
+		}else if(cod.charAt(i) == 'D') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == 'I') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == 'F') {
+					j++;
+					if(j < cod.length() && cod.charAt(j) == 'F') {
+						j++;
+						if(j < cod.length() && cod.charAt(j) == '↔') {
+							j++;
+							lex = cod.substring(i, j);
+							Token token = new Token( lex, Token.OPERADOR_ASIGNACION, j );
+							return token;
+						}
 					}
 				}
 			}
@@ -370,8 +401,8 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerSimboloAbrir(String cod, int i) {
 		if(cod.charAt(i) == '«') {
-			int j= i + 1;
-			String lex = cod.substring(i,  j);
+			int j = i + 1;
+			String lex = cod.substring(i, j);
 			Token token = new Token( lex, Token.SIMBOLO_ABRIR, j );
 			return token;
 		}
@@ -388,8 +419,8 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerSimboloCerrar(String cod, int i) {
 		if(cod.charAt(i) == '»') {
-			int j= i + 1;
-			String lex = cod.substring(i,  j);
+			int j = i + 1;
+			String lex = cod.substring(i, j);
 			Token token = new Token( lex, Token.SIMBOLO_CERRAR, j );
 			return token;
 		}
@@ -405,9 +436,9 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerSimboloTerminal(String cod, int i) {
-		if( cod.charAt(i)=='¬' ) {
-			int j=i+1;
-			String lex =  cod.substring( i, j);			    
+		if(cod.charAt(i) == '¬') {
+			int j = i + 1;
+			String lex = cod.substring(i, j);			    
 			Token token = new Token( lex, Token.SIMBOLO_TERMINAL, j );
 			return token;			
 		}	
@@ -423,22 +454,21 @@ public class AnalizadorLexico {
 	 * el lexema, el tipo y la posición del siguiente lexema.
 	 */
 	public Token extraerSeparadorSentencia(String cod, int i) {
-		if(cod.charAt(i)=='|' ) {
-			if((i+1) < cod.length()  && (cod.charAt(i+1) == 't' || cod.charAt(i+1) == 'l'  || cod.charAt(i+1) == 'f')) {
+		if(cod.charAt(i) == '|') {
+			int j = i + 1;
+			if(j < cod.length() && (cod.charAt(j) == 't' || cod.charAt(j) == 'l' || cod.charAt(j) == 'f')) {
 				return null;
 			}else {
-				int j=i+1;
-				String lex =  cod.substring( i, j);			    
+				String lex = cod.substring(i, j);			    
 				Token token = new Token( lex, Token.SEPARADOR_SENTENCIA, j );
 				return token;
 			}
-			
 		}	
 		return null;
 	}
 
 	//---------------------------PALABRAS RESERVADAS: DIFERENTES USOS--------------------------------
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para diferentes usos de bucle o ciclo de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -449,19 +479,20 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosBucleCiclo(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'C' && (i+5) < cod.length()) {
+		String lex;
+		if(cod.charAt(i) == 'C') {
 			j = i + 1;
-			if (cod.charAt(j) == 'i') {
+			if (j < cod.length() && cod.charAt(j) == 'i') {
 				j++;
-				if(cod.charAt(j) == 'c') {
+				if(j < cod.length() && cod.charAt(j) == 'c') {
 					j++;
-					if(cod.charAt(j) == 'l') {
+					if(j < cod.length() && cod.charAt(j) == 'l') {
 						j++;
-						if(cod.charAt(j) == 'o') {
+						if(j < cod.length() && cod.charAt(j) == 'o') {
 							j++;
-							if(cod.charAt(i+5) == 'n') {
+							if(j < cod.length() && cod.charAt(j) == 'n') {
 								j++;
-								String lex = cod.substring(i,  j);
+								lex = cod.substring(i, j);
 								Token token = new Token( lex, Token.PALABRA_RESERVADA_BUCLE_CICLO, j );
 								return token;
 							}
@@ -472,7 +503,7 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para diferentes usos para decisión de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -483,19 +514,20 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosDecision(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'W' && (i+5) < cod.length()) {
-			j= i + 1;
-			if (cod.charAt(j) == 'h') {
+		String lex;
+		if(cod.charAt(i) == 'W') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'h') {
 				j++;
-				if(cod.charAt(j) == 'a') {
+				if(j < cod.length() && cod.charAt(j) == 'a') {
 					j++;
-					if(cod.charAt(j) == 't') {
+					if(j < cod.length() && cod.charAt(j) == 't') {
 						j++;
-						if(cod.charAt(j) == 'i') {
+						if(j < cod.length() && cod.charAt(j) == 'i') {
 							j++;
-							if(cod.charAt(j) == 'f') {
+							if(j < cod.length() && cod.charAt(j) == 'f') {
 								j++;
-								String lex = cod.substring(i,  j);
+								lex = cod.substring(i, j);
 								Token token = new Token( lex, Token.PALABRA_RESERVADA_DECISION, j );
 								return token;
 							}
@@ -506,7 +538,7 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para diferentes usos para la clase de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -517,17 +549,18 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaDiferentesUsosClase(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'K' && (i+4) < cod.length()) {
+		String lex;
+		if(cod.charAt(i) == 'K') {
 			j = i + 1;
-			if (cod.charAt(j) == 'l') {
+			if (j < cod.length() && cod.charAt(j) == 'l') {
 				j++;
-				if(cod.charAt(j) == 'a') {
+				if(j < cod.length() && cod.charAt(j) == 'a') {
 					j++;
-					if(cod.charAt(j) == 's') {
+					if(j < cod.length() && cod.charAt(j) == 's') {
 						j++;
-						if(cod.charAt(j) == 's') {
+						if(j < cod.length() && cod.charAt(j) == 's') {
 							j++;
-							String lex = cod.substring(i,  j);
+							lex = cod.substring(i, j);
 							Token token = new Token( lex, Token.PALABRA_RESERVADA_CLASE, j );
 							return token;
 						}
@@ -537,9 +570,9 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	//---------------------------PALABRAS RESERVADAS: IDENTIFICADORES--------------------------------
-	
+
 	/**
 	 * Intenta extraer un identificador para nombres de variables de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -641,139 +674,146 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	//---------------------------VALOR DE ASIGNACIÓN--------------------------------
-	
-	 /**
-     * Extrae el valor de asignacion para tipo de dato entero
-     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_ENTEROS - codigo!=null
-     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_ENTEROS  - 0<=indice<codigo.length()
-     * @return el valor de asignacion del entero. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
-     */
-	public Token extrearEntero(String cod, int i) {
-		if(cod.charAt(i) == 'I' && cod.charAt(i+1) == '$') {
-			int j = i+2;
-			if(j < cod.length() && esDigito(cod.charAt(j))) {
-				while(j < cod.length() && esDigito(cod.charAt(j)) ) {
-					j ++;	
+
+	/**
+	 * Intenta extraer un valor de asignacion de un numero entero de la cadena cod a partir de la posición i,
+	 * basándose en el Autómata
+	 * @param cod - código al cual se le va a intentar extraer el valor de asignacion - codigo!=null
+	 * @param i - posición a partir de la cual se va a intentar extraer el valor de asignacion - 0<=i<codigo.length()
+	 * @return el token valor asignacion entero o NULL, si el token en la posición dada no es un valor de asignacion de un numero entero. El Token se compone de 
+	 * el lexema, el tipo y la posición del siguiente lexema.
+	 */
+	public Token extraerValorAsignacionEntero(String cod, int i) {
+		int j;
+		String lex;
+		if(cod.charAt(i) == 'I') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '$') {
+				j++;
+				if(j < cod.length() && esDigito(cod.charAt(j))) {
+					j++;
+					while(j < cod.length() && esDigito(cod.charAt(j))) {
+						j++;	
+					}
+					lex = cod.substring(i, j);			    
+					Token token = new Token( lex, Token.VALOR_ASIGNACION_ENTEROS, j );
+					return token;
 				}
-				
-				String lex =  cod.substring( i, j);			    
-				Token token = new Token( lex, Token.VALOR_ASIGNACION_ENTEROS, j );
-				return token;
 			}
 		}
-		
 		return null;
 	}
-	 //I$113 R$1.13 CC$HOLA °t MUNDO$CC °l °f
-	 /**
-     * Extrae el valor de asignacion para los numeros reales
-     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_ENTEROS - codigo!=null
-     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_ENTEROS  - 0<=indice<codigo.length()
-     * @return el valor de asignacion del entero. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
-     */
-	public Token extrearReal(String cod, int i) {
-		if(cod.charAt(i) == 'R' && cod.charAt(i+1) == '$') {
-			int j = i+2;
-			
-			if(j < cod.length() && cod.charAt(j) == '-') {
-				j++;
-			}
-			
-			if(j < cod.length()) {
 
-				if(esDigito(cod.charAt(j))) {
-					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
-						j ++;	
-					}
-					
-				}
-									
-				if(j < cod.length() && cod.charAt(j) == '.') {
+	/**
+	 * Intenta extraer un valor de asignacion de un numero real de la cadena cod a partir de la posición i,
+	 * basándose en el Autómata
+	 * @param cod - código al cual se le va a intentar extraer el valor de asignacion - codigo!=null
+	 * @param i - posición a partir de la cual se va a intentar extraer el valor de asignacion - 0<=i<codigo.length()
+	 * @return el token valor asignacion real o NULL, si el token en la posición dada no es un valor de asignacion de un numero real. El Token se compone de 
+	 * el lexema, el tipo y la posición del siguiente lexema.
+	 */
+	public Token extraerValorAsignacionReal(String cod, int i) {
+		int j;
+		String lex;
+		if(cod.charAt(i) == 'R') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == '$') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == '-') {
 					j++;
 				}
-				
 				if(j < cod.length() && esDigito(cod.charAt(j))) {
-					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
-						j ++;	
+					j++;
+					while(j < cod.length() && esDigito(cod.charAt(j))) {
+						j++;	
 					}
-					
-					String lex =  cod.substring( i, j);			    
-					Token token = new Token( lex, Token.VALOR_ASIGNACION_REALES, j );
-			    	return token;
+					if(j < cod.length() && cod.charAt(j) == '.') {
+						j++;
+						if(j < cod.length() && esDigito(cod.charAt(j))) {
+							j++;
+							while(j < cod.length() && esDigito(cod.charAt(j))) {
+								j++;	
+							}
+							lex = cod.substring(i, j);			    
+							Token token = new Token( lex, Token.VALOR_ASIGNACION_REALES, j );
+							return token;
+						}
+					}
 				}
-					
 			}
 		}
 		return null;
 	}
-	
-    /**
-     * Extraer un lexema de una cadena de caracteres de la cadena cod a partir de la posición i.
-     * @param cod - código al cual se le va a extraer el token de valor de asignacion para una cadena de caracteres
-     * @param i - posición a partir de la cual se va a extraer el token no reconocido  - 0<=indice<codigo.length()
-     * @return el token de la cadena de carcteres. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
-     */
-	public Token extraerCadenaCaracteres(String cod, int i) {
-		if((i+2) < cod.length() && cod.charAt(i) == 'C' && cod.charAt(i+1) == 'C' && cod.charAt(i+2) == '$') {
-			int j = i+3;
-			
-			while(cod.charAt(j) != '$') {
-				
-				if(j < cod.length() && esLetra(cod.charAt(j)) || cod.charAt(j) == ' ') {
-					while(j < cod.length() && esLetra(cod.charAt(j)) || cod.charAt(j) == ' ') {
-						j ++;	
+
+	/**
+	 * Intenta extraer un valor de asignacion de una cadena de caracteres de la cadena cod a partir de la posición i,
+	 * basándose en el Autómata
+	 * @param cod - código al cual se le va a intentar extraer el valor de asignacion - codigo!=null
+	 * @param i - posición a partir de la cual se va a intentar extraer el valor de asignacion - 0<=i<codigo.length()
+	 * @return el token valor asignacion cadena o NULL, si el token en la posición dada no es un valor de asignacion de una cadena. El Token se compone de 
+	 * el lexema, el tipo y la posición del siguiente lexema.
+	 */
+	public Token extraerValorAsignacionCadenaCaracteres(String cod, int i) {
+		int j;
+		String lex;
+		if(cod.charAt(i) == 'C') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == 'C') {
+				j++;
+				if(j < cod.length() && cod.charAt(j) == '$') {
+					j++;
+					while(j < cod.length() && cod.charAt(j) != '$') {
+						if(j < cod.length() && esCualquierSimbolo(cod.charAt(j))) {
+							j++;
+						}
+					}
+					if(j < cod.length() && cod.charAt(j) == '$') {
+						j++;
+						if(j < cod.length() && cod.charAt(j) == 'C') {
+							j++;
+							if(j < cod.length() && cod.charAt(j) == 'C') {
+								j++;
+								lex = cod.substring(i, j);			    
+								Token token = new Token( lex, Token.VALOR_ASIGNACION_CADENA, j );
+								return token;
+							}
+						}
 					}
 				}
-				
-				if(j < cod.length() && cod.charAt(j) == '|') {
-					j += 1;
-					if(j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
-						j += 1;
-					}
-				}
-				
-				if(j < cod.length() && esDigito(cod.charAt(j))) {
-					while(j < cod.length() && esDigito(cod.charAt(j)) ) {
-						j ++;	
-					}
-				}
-				
-			}
-			
-			if((j+2) < cod.length() && cod.charAt(j) == '$' && cod.charAt(j+1) == 'C' && cod.charAt(j+2) == 'C') {
-				j += 3;
-				String lex =  cod.substring( i, j);			    
-				Token token = new Token( lex, Token.VALOR_ASIGNACION_CADENA, j );
-		    	return token;
 			}
 		}
-		
 		return null;
 	}
-	
-	 /**
-     * Extrae el valor de asignacion para caracteres
-     * @param cod - código al cual se le va a extraer el token VALOR_ASIGNACION_CARACTERES - codigo!=null
-     * @param i - posición a partir de la cual se va a extraer el token VALOR_ASIGNACION_CARACTERES  - 0<=indice<codigo.length()
-     * @return el valor de asignacion de caracteres. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
-     */
-	public Token extraerCaracteres(String cod, int i) {
-		int j = i;
-		
-		if(j < cod.length() && cod.charAt(j) == '|' && j+1 < cod.length() && (cod.charAt(j+1) == 't' || cod.charAt(j+1) == 'l' || cod.charAt(j+1) == 'f')) {
-				j += 2;
-				String lex =  cod.substring( i, j);			    
-				Token token = new Token( lex, Token.VALOR_ASIGNACION_CARACTERES, j );
-		    	return token;
+
+	/**
+	 * Intenta extraer un valor de asignacion de un caracter de la cadena cod a partir de la posición i,
+	 * basándose en el Autómata
+	 * @param cod - código al cual se le va a intentar extraer el valor de asignacion - codigo!=null
+	 * @param i - posición a partir de la cual se va a intentar extraer el valor de asignacion - 0<=i<codigo.length()
+	 * @return el token valor asignacion caracter o NULL, si el token en la posición dada no es un valor de asignacion de un caracter. El Token se compone de 
+	 * el lexema, el tipo y la posición del siguiente lexema.
+	 */
+	public Token extraerValorAsignacionCaracter(String cod, int i) {
+		int j;
+		String lex;
+		if(esCualquierSimbolo(cod.charAt(i))) {
+			j = i + 1;
+			if(cod.charAt(i) == '|') {
+				if( j < cod.length() && (cod.charAt(j) == 't' || cod.charAt(j) == 'l' || cod.charAt(j) == 'f')) {
+					j++;
+				}
+			}
+			lex = cod.substring(i, j);			    
+			Token token = new Token( lex, Token.VALOR_ASIGNACION_CARACTERES, j );
+			return token;
 		}
-		
 		return null;
 	}
 
 	//---------------------------PALABRAS RESERVADAS: TIPO DE DATO--------------------------------
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para tipo de dato entero de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -784,13 +824,14 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaTipoDatoEntero(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'e' && (i+2) < cod.length()) {
-			j= i + 1;
-			if (cod.charAt(j) == 'n') {
+		String lex;
+		if(cod.charAt(i) == 'e') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'n') {
 				j++;
-				if(cod.charAt(j) == 't') {
+				if(j < cod.length() && cod.charAt(j) == 't') {
 					j++;
-					String lex = cod.substring(i,  j);
+					lex = cod.substring(i, j);
 					Token token = new Token( lex, Token.PALABRA_RESERVADA_ENTEROS, j );
 					return token;
 				}
@@ -798,7 +839,7 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para tipo de dato real de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -809,13 +850,14 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaTipoDatoReal(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'r' && (i+2) < cod.length()) {
-			j= i + 1;
-			if (cod.charAt(j) == 'e') {
+		String lex;
+		if(cod.charAt(i) == 'r') {
+			j = i + 1;
+			if(j < cod.length() && cod.charAt(j) == 'e') {
 				j++;
-				if(cod.charAt(j) == 'l') {
+				if(j < cod.length() && cod.charAt(j) == 'l') {
 					j++;
-					String lex = cod.substring(i,  j);
+					lex = cod.substring(i, j);
 					Token token = new Token( lex, Token.PALABRA_RESERVADA_REALES, j );
 					return token;
 				}
@@ -834,21 +876,22 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaTipoDatoCadena(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 'P' && (i+6) < cod.length()) {
+		String lex;
+		if(cod.charAt(i) == 'P') {
 			j = i + 1;
-			if (cod.charAt(j) == 'h') {
+			if (j < cod.length() && cod.charAt(j) == 'h') {
 				j++;
-				if(cod.charAt(j) == 'r'){
+				if(j < cod.length() && cod.charAt(j) == 'r') {
 					j++;
-					if(cod.charAt(j) == 'a') {
+					if(j < cod.length() && cod.charAt(j) == 'a') {
 						j++;
-						if(cod.charAt(j) == 's') {
+						if(j < cod.length() && cod.charAt(j) == 's') {
 							j++;
-							if(cod.charAt(j) == 'e') {
+							if(j < cod.length() && cod.charAt(j) == 'e') {
 								j++;
-								if(cod.charAt(j) == 's') {
+								if(j < cod.length() && cod.charAt(j) == 's') {
 									j++;
-									String lex = cod.substring(i,  j);
+									lex = cod.substring(i, j);
 									Token token = new Token( lex, Token.PALABRA_RESERVADA_CADENAS, j );
 									return token;
 								}
@@ -860,7 +903,7 @@ public class AnalizadorLexico {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para tipo de dato caracter de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -871,14 +914,14 @@ public class AnalizadorLexico {
 	 */
 	public Token extraerPalabraReservadaTipoDatoCaracter(String cod, int i) {
 		int j;
-		if(cod.charAt(i) == 's' && (i+2) < cod.length()) {
-			j = i +1;
-			if (cod.charAt(j) == 'y') {
+		String lex;
+		if(cod.charAt(i) == 's') {
+			j = i + 1;
+			if (j < cod.length() && cod.charAt(j) == 'y') {
 				j++;
-				if(cod.charAt(j) == 'm')
-				{
+				if(j < cod.length() && cod.charAt(j) == 'm') {
 					j++;
-					String lex = cod.substring(i,  j);
+					lex = cod.substring(i, j);
 					Token token = new Token( lex, Token.PALABRA_RESERVADA_CARACTERES, j );
 					return token;
 				}
@@ -888,7 +931,7 @@ public class AnalizadorLexico {
 	}
 
 	//---------------------------SIN CATEGORÍA--------------------------------
-	
+
 	/**
 	 * Intenta extraer una palabra reservada para estructura condicional multiple de la cadena cod a partir de la posición i,
 	 * basándose en el Autómata
@@ -931,7 +974,7 @@ public class AnalizadorLexico {
 	}
 
 	//---------------------------NO RECONOCIDO--------------------------------
-	
+
 	/**
 	 * Extraer un lexema no reconocido de la cadena cod a partir de la posición i.
 	 * Antes de utilizar este método, debe haberse intentado todos los otros métodos para los otros tipos de token
@@ -940,7 +983,7 @@ public class AnalizadorLexico {
 	 * @return el token no reconocido. El Token se compone de lexema, el tipo y la posición del siguiente lexema.
 
 	 */
-	public Token extraerNoReconocido ( String cod, int i) {
+	public Token extraerNoReconocido(String cod, int i) {
 		String lexema =  cod.substring( i, i + 1);
 		int j=i+1;
 		Token token = new Token( lexema, Token.NO_RECONOCIDO, j );
@@ -948,13 +991,13 @@ public class AnalizadorLexico {
 	}
 
 	//---------------------------CONVENCIONES--------------------------------
-	
+
 	/**
 	 * Determina si un carácter es un dígito
 	 * @param caracter - Carácter que se va a analizar - caracter!=null,
 	 * @return true o false según el carácter sea un dígito o no
 	 */
-	public boolean esDigito (char caracter) {
+	public boolean esDigito(char caracter) {
 		return  caracter >= '0' && caracter <= '9';
 	}
 
@@ -963,7 +1006,7 @@ public class AnalizadorLexico {
 	 * @param caracter - Carácter que se va a analizar - caracter!=null,
 	 * @return true o false según el carácter sea una letra mayuscula o no
 	 */
-	public boolean esLetraMayuscula (char caracter) {
+	public boolean esLetraMayuscula(char caracter) {
 		return  caracter >= 'A' && caracter <= 'Z';
 	}
 
@@ -972,7 +1015,7 @@ public class AnalizadorLexico {
 	 * @param caracter - Carácter que se va a analizar - caracter!=null,
 	 * @return true o false según el carácter sea una letra minuscula o no
 	 */
-	public boolean esLetraMinuscula (char caracter) {
+	public boolean esLetraMinuscula(char caracter) {
 		return  caracter >= 'a' && caracter <= 'z';
 	}
 
@@ -981,12 +1024,21 @@ public class AnalizadorLexico {
 	 * @param caracter - Carácter que se va a analizar - caracter!=null,
 	 * @return true o false según el carácter sea una letra o no
 	 */
-	public boolean esLetra (char caracter) {
+	public boolean esLetra(char caracter) {
 		return  (caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z');
 	}
-	
+
+	/**
+	 * Determina si un carácter es cualquier simbolo del ASCII (incluido el espacio)
+	 * @param caracter - Carácter que se va a analizar - caracter!=null,
+	 * @return true o false según el carácter sea cualquier simbolo del ASCII o no
+	 */
+	public boolean esCualquierSimbolo(char caracter) {
+		return  (caracter >= ' ' && caracter <= '~');
+	}
+
 	//----------------------------MÉTODOS AUXILIARES--------------------------------
-	
+
 	/**
 	 * Verifica que el token de la palabra reservada de la estructura condicional múltiple exista
 	 * @param cod - código al cual se le va a intentar extraer la palabra reservada

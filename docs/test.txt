@@ -1,26 +1,26 @@
-«PLUS|DIFFPROD|↑↓↓↔↑↔/↔↔↔[NombrePersona1]#obtenerNombre&01#1:23Persona_~HANDLE~~öä↔PLUS↔DIFF↔»DIV I$113R$1.13CC$HOLA |t MUNDO$CC|l|f
+PLUSDIFFPRODDIV↑↓↓↔↑↔↔↔/↔~öä↔PLUS↔DIFF↔«»¬|CiclonWhatifKlass[NombrePersona1]#obtenerNombre&01#1:23Persona_I$113R$1.13CC$HOLA |t MUNDO$CCa3 |l|fentrelPhrasessym~HANDLE~
 
-	   CATEGORIA					    TOKEN			    EXPRESION_REGULAR		  CEBRI_JAMA		    SIG_JAVA
-  Operadores				      Operadores aritmeticos           (PLUSuDIFFuPRODuDIV)       PLUSDIFFPRODDIV              +-*/
-  Operadores					Operadores relacionales            (↑u↓u↓↔u↑↔u/↔u↔↔)          ↑↓↓↔↑↔/↔↔↔                 ><>=<=!===
-  Operadores					Operadores lógicos                   (~uöuä)			     ~öä                      !||&&
-  Operadores					Operador de asignación               (↔uPLUS↔uDIFF↔)			↔PLUS↔DIFF↔            =+=-=
-  Operadores					Simbolo de abrir                        «                          «                       {
-  Operadores					Simbolo de cerrar                       »                          »                       }
-  Operadores					Terminal o inicial                      ¬                          ¬                       ;
-  Operadores                                Separador de sentencia                |                          |                       |                       ,
-palabrasReservadasIdentificadores	   	       nombresVariables			        [M(LUD)*]	       [NombrePersona1]	         nombrePersona1
-palabrasReservadasIdentificadores	   	       nombresMetodos		   	       #NL*&(LUD)*#	      #obtenerNombre&01#         obtenerNombre
-palabrasReservadasIdentificadores	   	       nombresClases		   		1:DD*LL*_		 1:23Persona_	             Persona
-	  sinCategoria		 	palabraReservadaEstructuraCondicionalMultiple		~HANDLE~	           ~HANDLE~		     switch
-Valor de asignacion                     Enteros                                  (I$DD*)                     I$113                   113
-Valor de asignacion                     Reales                               (R$)(-U+)(DD*)(.)(DD*)          R$1.13                   1.13
-Valor de asignacion                     Cadena de Catacteres          (CC$)((C.S)U(°)(t U l U f) U ε)*($CC) CC$HOLA |t MUNDO$CC        "Hola mundo"
-Valor de asignacion                     Caracteres                         ((C.S) U (°)(t U l U f) U ε)     |l|f  C.S                  hola, \n
-PalabrasReservadasDiferentesUsos        Palabra reservada ciclo o blucle        (Ciclon)                    Ciclon                  for, while
-PalabrasReservadasDiferentesUsos        Palabra para desicion                   (Whatif)                    Whatif                      if
-PalabrasReservadasDiferentesUsos        Palabra para la clase                   (Klass)                     Klass				  class
-PalabrasReservadasTipoDato		    Palabra para los enteros                (ent)				ent				   int
-PalabrasReservadasTipoDato		    Palabra para los reales			  (rel)				rel				  double
-PalabrasReservadasTipoDato		    Palabra para cadena de caracteres       (Phrases)				Phrases			  String
-PalabrasReservadasTipoDato		    Palabra para los caracteres 		  (sym)				sym   			   char
+	    CATEGORIA				       TOKEN			    	EXPRESION_REGULAR	     CEBRI_JAMA		    SIG_JAVA
+  	   operadores				operadoresAritmeticos                  PLUSuDIFFuPRODuDIV          PLUSDIFFPRODDIV            +-*/
+  	   operadores				operadoresRelacionales            	 ↑U↓U↓↔U↑↔U↔↔U/↔             ↑↓↓↔↑↔↔↔/↔            ><>=<=!===
+  	   operadores				  operadoresLogicos                   	     ~UöUä			 ~öä                 !||&&
+  	   operadores				operadorDeAsignacion               	  ↔uPLUS↔uDIFF↔		     ↔PLUS↔DIFF↔             =+=-=
+  	   operadores				    simboloDeAbrir                        	«                         «                    {
+  	   operadores				    simboloDeCerrar                       	»                         »                    }
+   	   operadores				      terminal                      		¬                         ¬                    ;
+  	   operadores                           separadorDeSentencia                		|                         |                    ,
+palabrasReservadasDiferentesUsos           palabraReservadaParaCicloOBucle        	      Ciclon                    Ciclon             for, while
+palabrasReservadasDiferentesUsos                 palabraParaDesicion                   	      Whatif                    Whatif                 if
+palabrasReservadasDiferentesUsos                 palabraParaLaClase                   	      Klass                     Klass		     class
+palabrasReservadasIdentificadores	   	  nombresVariables			    [M(LUD)*]	       	   [NombrePersona1]	 nombrePersona1
+palabrasReservadasIdentificadores	   	   nombresMetodos		   	   #NL*&(LUD)*#	      	  #obtenerNombre&01#     obtenerNombre
+palabrasReservadasIdentificadores	   	   nombresClases		   	    1:DD*LL*_		     1:23Persona_	    Persona
+        valorDeAsignacion                     	       enteros                                I$DD*                     I$113                 113
+	valorDeAsignacion                    	       reales                             R$(-U+)DD*.DD*                R$1.13                1.13
+	valorDeAsignacion                        cadenaDeCaracteres          	    CC$((C.S)U|(tUlUf)Uε)*$CC	 CC$HOLA |t MUNDO$CC     "Hola \t mundo"
+	valorDeAsignacion                            caracteres                     	(C.S)U|(tUlUf)Uε     	       a3 |l|f         'a', ' ', '3', '\n'
+   palabrasReservadasTipoDato		    	 palabraParaEnteros                	       ent			 ent		      int
+   palabrasReservadasTipoDato		    	  palabraParaReales			       rel			 rel		     double
+   palabrasReservadasTipoDato		     palabraParaCadenaDeCaracteres      	     Phrases		       Phrases		     String
+   palabrasReservadasTipoDato		        palabraParaCaracteres 		  	       sym			 sym   		     char
+	  sinCategoria		     palabraReservadaEstructuraCondicionalMultiple	     ~HANDLE~	               ~HANDLE~		     switch
